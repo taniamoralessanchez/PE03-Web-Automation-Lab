@@ -18,21 +18,8 @@ Vagrant.configure("2") do |config|
 
     frontend.vm.provision "shell", path: "scripts/frontend.sh"
   end
-
-  # 2. MÁQUINA BACKEND (Node.js)
-  config.vm.define "backend" do |backend|
-    backend.vm.hostname = "backend"
-    backend.vm.network "private_network", ip: "192.168.56.20"
-    
-    backend.vm.provider "virtualbox" do |vb|
-      vb.memory = "1024"
-      vb.name = "BE-Server"
-    end
-
-    backend.vm.provision "shell", path: "scripts/backend.sh"
-  end
-
-  # 3. MÁQUINA BASE DE DATOS (MongoDB)
+  
+  # 2. MÁQUINA BASE DE DATOS (MongoDB)
   config.vm.define "database" do |database|
     database.vm.hostname = "mongo"
     database.vm.network "private_network", ip: "192.168.56.30"
@@ -43,5 +30,18 @@ Vagrant.configure("2") do |config|
     end
 
     database.vm.provision "shell", path: "scripts/database.sh"
+  end
+
+  # 3. MÁQUINA BACKEND (Node.js)
+  config.vm.define "backend" do |backend|
+    backend.vm.hostname = "backend"
+    backend.vm.network "private_network", ip: "192.168.56.20"
+    
+    backend.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.name = "BE-Server"
+    end
+
+    backend.vm.provision "shell", path: "scripts/backend.sh"
   end
 end
