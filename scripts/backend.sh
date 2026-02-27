@@ -24,10 +24,9 @@ sudo fuser -k 3000/tcp || true
 
 # 6. Lanzar la aplicación
 # Usamos nohup, redirigimos logs y usamos '&' + 'disown' para que no se cierre al salir el script
-nohup node server.js > /home/vagrant/app/output.log 2>&1 &
-disown
+(cd /home/vagrant/app && nohup node server.js > output.log 2>&1 &) && sleep 1 && disown -a
 
 # 7. Una pequeña espera para que a Node le dé tiempo a arrancar antes de que el script termine
-sleep 2
+sleep 5
 
 echo ">>> Backend iniciado y desvinculado. Logs en /home/vagrant/app/output.log"
